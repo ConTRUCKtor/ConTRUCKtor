@@ -6,8 +6,4 @@ export default defineConfig({
       ssr: false,
     }),
   ],
-  server: {
-    host: true,
-    port: 8000
-  }
 });

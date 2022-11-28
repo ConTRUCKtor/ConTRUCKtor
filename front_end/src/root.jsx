@@ -1,6 +1,7 @@
 // @refresh reload
 import { Suspense } from "solid-js";
 import {
+  A,
   Body,
   ErrorBoundary,
   FileRoutes,
@@ -16,19 +17,21 @@ export default function Root() {
   return (
     <Html lang="en">
       <Head>
-        <Title>SolidStart - With Auth</Title>
+        <Title>SolidStart - Bare</Title>
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
-	<Link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" crossorigin="anonymous"/>
+        <Link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossOrigin="anonymous"/>
       </Head>
       <Body>
-        <ErrorBoundary>
-          <Suspense fallback={<div>Loading</div>}>
+        <Suspense>
+          <ErrorBoundary>
+            <A href="/">Index</A>
+            <A href="/about">About</A>
             <Routes>
               <FileRoutes />
             </Routes>
-          </Suspense>
-        </ErrorBoundary>
+          </ErrorBoundary>
+        </Suspense>
         <Scripts />
       </Body>
     </Html>
