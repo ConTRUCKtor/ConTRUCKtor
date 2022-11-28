@@ -1,33 +1,12 @@
-import { useRouteData } from "solid-start";
-import {
-  createServerAction$,
-  createServerData$,
-  redirect,
-} from "solid-start/server";
-import { getUser, logout } from "~/db/session";
-export function routeData() {
-  return createServerData$(async (_, { request }) => {
-    const user = await getUser(request);
-
-    if (!user) {
-      throw redirect("/login");
-    }
-
-    return user;
-  });
-}
 export default function Home() {
-  const user = useRouteData();
-  const [, { Form }] = createServerAction$((f, { request }) => logout(request));
+  import {Navbar, Container} from "solid-bootstrap";
   return (
-    <main class="w-full p-4 space-y-2">
-      <h1 class="font-bold text-3xl">Hello {user()?.username}</h1>
-      <h3 class="font-bold text-xl">Message board</h3>
-      <Form>
-        <button name="logout" type="submit">
-          Logout
-        </button>
-      </Form>
-    </main>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="#">
+            This is a Navbar
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
   );
 }
