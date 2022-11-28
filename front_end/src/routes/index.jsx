@@ -1,30 +1,33 @@
-import { A } from "solid-start";
-import Counter from "~/components/Counter";
+import { useRouteData } from "solid-start";
+import {
+  createServerAction$,
+  createServerData$,
+  redirect,
+} from "solid-start/server";
+import { getUser, logout } from "~/db/session";
+export function routeData() {
+  return createServerData$(async (_, { request }) => {
+    const user = await getUser(request);
+
+    if (!user) {
+      throw redirect("/login");
+    }
+
+    return user;
+  });
+}
 export default function Home() {
+  const user = useRouteData();
+  const [, { Form }] = createServerAction$((f, { request }) => logout(request));
   return (
-    <main class="text-center mx-auto text-gray-700 p-4">
-      <h1 class="max-6-xs text-6xl text-sky-700 font-thin uppercase my-16">
-        Hello world!
-      </h1>
-      <Counter />
-      <p class="mt-8">
-        Visit{" "}
-        <a
-          href="https://solidjs.com"
-          target="_blank"
-          class="text-sky-600 hover:underline"
-        >
-          solidjs.com
-        </a>{" "}
-        to learn how to build Solid apps.
-      </p>
-      <p class="my-4">
-        <span>Home</span>
-        {" - "}
-        <A href="/about" class="text-sky-600 hover:underline">
-          About Page
-        </A>{" "}
-      </p>
+    <main class="w-full p-4 space-y-2">
+      <h1 class="font-bold text-3xl">Hello {user()?.username}</h1>
+      <h3 class="font-bold text-xl">Message board</h3>
+      <Form>
+        <button name="logout" type="submit">
+          Logout
+        </button>
+      </Form>
     </main>
   );
 }

@@ -1,7 +1,6 @@
 // @refresh reload
 import { Suspense } from "solid-js";
 import {
-  A,
   Body,
   ErrorBoundary,
   FileRoutes,
@@ -11,28 +10,26 @@ import {
   Routes,
   Scripts,
   Title,
+  Link,
 } from "solid-start";
 import "./root.css";
 export default function Root() {
   return (
     <Html lang="en">
       <Head>
-        <Title>SolidStart - With TailwindCSS</Title>
+        <Title>SolidStart - With Auth</Title>
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
+	<Link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" crossorigin="anonymous"/>
       </Head>
       <Body>
-        <Suspense>
-          <ErrorBoundary>
-            <A class="mr-2" href="/">
-              Index
-            </A>
-            <A href="/about">About</A>
+        <ErrorBoundary>
+          <Suspense fallback={<div>Loading</div>}>
             <Routes>
               <FileRoutes />
             </Routes>
-          </ErrorBoundary>
-        </Suspense>
+          </Suspense>
+        </ErrorBoundary>
         <Scripts />
       </Body>
     </Html>

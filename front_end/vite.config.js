@@ -7,7 +7,7 @@ export default defineConfig({
     }),
   ],
   server: {
-    port: 80,
     host: true,
-  },
+    port: 8000
+  }
 });
