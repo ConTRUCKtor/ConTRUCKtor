@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useEffect} from "react";
-import {Auth0Provider} from "@auth0/auth0-react";
+import {UserProvider} from "@auth0/nextjs-auth0";
 import Layout from "../components/layout";
 
 function MyApp({ Component, pageProps }) {
@@ -9,14 +9,12 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <Auth0Provider
-        domain="contrucktor.eu.auth0.com"
-        clientId="QWJ7pzkJDEXvSM3dKAnx1Lw4m8vhozFj"
-        redirectUri="http://localhost:3000/">
+    <UserProvider
+        domain="contrucktor.eu.auth0.com">
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </Auth0Provider>
+    </UserProvider>
   );
 }
 

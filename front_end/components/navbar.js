@@ -1,16 +1,16 @@
-import {useAuth0} from "@auth0/auth0-react";
+import {useUser} from "@auth0/nextjs-auth0";
 import LoginButton from "./loginbutton";
 import LogoutButton from "./logoutbutton";
 
 export default function Navbar(){
-    const {isAuthenticated, isLoading} = useAuth0();
+    const {user, isLoading} = useUser();
 
     if(isLoading){
         return <div>Loading...</div>;
     }
 
     let button;
-    if(isAuthenticated){
+    if(user != null){
         button = <LogoutButton />;
     }else{
         button = <LoginButton />;
