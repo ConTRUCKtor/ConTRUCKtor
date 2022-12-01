@@ -1,0 +1,4 @@
+[database]
+namespace = "dev"
+database = "dev"
+datastore = "file://surreal.db"
