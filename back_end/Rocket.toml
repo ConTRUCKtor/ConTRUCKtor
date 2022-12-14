@@ -1,2 +1,2 @@
-[default]
-port = 3000
+[default.databases.sqlite_userdata]
+url = "./databases/userdata.db"

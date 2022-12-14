@@ -1,55 +1,38 @@
-use rocket::{fairing::{Fairing, Info, Kind, Result}, Rocket, Build, serde::Deserialize};
-use surrealdb::{Session, Datastore, Error, sql::Value};
+pub mod models;
 
-pub struct Db{
-    session: Session,
-    datastore: Datastore
-}
+use rocket_db_pools::sqlx::Row;
+use rocket_db_pools::Connection;
+use rocket_db_pools::{sqlx, Database};
 
-impl Db{
-    pub async fn new(namespace: &str, database: &str, datastore: &str) -> Self{
-        Self {
-            session: Session::for_db(namespace.to_string(), database.to_string()),
-            datastore: Datastore::new(&datastore).await.unwrap()
-        }
-    }
+use rocket::serde::Serialize;
 
-    pub async fn query(&self, statement: &str) -> Result<Vec<Value>, Error>{
-        let responses = self.datastore.execute(statement, &self.session, None, false).await?;
+#[derive(Database)]
+#[database("sqlite_userdata")]
+pub struct UserDatabase(sqlx::SqlitePool);
 
-        let mut results = Vec::new();
-
-        for response in responses{
-            results.push(response.result?.first());
-        }
-
-        Ok(results)
-    }
-}
-
-pub struct DbFairing;
-
-#[derive(Deserialize)]
+#[derive(Serialize)]
 #[serde(crate = "rocket::serde")]
-struct DbConfig{
-    namespace: String,
-    database: String,
-    datastore: String
-}
+pub struct UserNotFoundError(String);
 
-#[rocket::async_trait]
-impl Fairing for DbFairing{
-    fn info(&self) -> Info{
-        Info { name: "Database", kind: Kind::Ignite }
-    }
-
-    async fn on_ignite(&self, rocket: Rocket<Build>) -> Result{
-        let figment = rocket.figment().clone();
-
-        let db_config: DbConfig = figment.select("database").extract().unwrap();
-
-        let db = Db::new(&db_config.namespace, &db_config.database, &db_config.datastore).await;
-
-        Ok(rocket.manage(db))
+impl models::User {
+    pub async fn get_by_id(
+        mut db: Connection<UserDatabase>,
+        id: i32,
+    ) -> Result<Self, UserNotFoundError> {
+        let result = sqlx::query("SELECT * FROM users WHERE id = ?")
+            .bind(id)
+            .fetch_one(&mut *db)
+            .await
+            .and_then(|r| Ok(Self::new(r.try_get(0)?, r.try_get(1)?, r.try_get(2)?)))
+            .ok();
+        match result {
+            Some(res) => return Ok(res),
+            None => {
+                return Err(UserNotFoundError(format!(
+                    "user with id:{} could not be found",
+                    id
+                )))
+            }
+        };
     }
 }

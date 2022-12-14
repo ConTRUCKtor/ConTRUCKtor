@@ -1,24 +1,29 @@
-use database::{DbFairing, Db};
-use rocket::{get, launch, routes, figment::{Figment, providers::{Toml, Format}}, Config, State, serde::json::Json};
-use surrealdb::sql::Value;
+#[macro_use]
+extern crate rocket;
 
 mod database;
+use crate::database::models::*;
+use crate::database::*;
 
-#[get("/")]
-async fn index(db: &State<Db>) -> Json<Value> {
+use rocket::serde::json::Json;
+use rocket_db_pools::Connection;
+use rocket_db_pools::Database;
 
-    db.query("CREATE account SET name = 'John Doe', created_at = time::now();").await.unwrap();
-
-    let query = db.query("SELECT * FROM account WHERE name = 'John Doe';").await.unwrap();
-
-    Json(query.clone().into_iter().nth(0).unwrap())
+#[get("/get_user/<id>")]
+async fn get_user(
+    db: Connection<UserDatabase>,
+    id: i32,
+) -> Result<Json<User>, Json<UserNotFoundError>> {
+    let user = User::get_by_id(db, id).await;
+    match user {
+        Ok(user) => Ok(Json(user)),
+        Err(err) => Err(Json(err)),
+    }
 }
 
 #[launch]
-async fn rocket() -> _ {
-    let figment = Figment::from(Config::default())
-      .merge(Toml::file("Rocket.toml").nested())
-      .merge(Toml::file("App.toml").nested());
-
-    rocket::custom(figment).mount("/", routes![index]).attach(DbFairing)
+fn rocket() -> _ {
+    rocket::build()
+        .attach(UserDatabase::init())
+        .mount("/", routes![get_user])
 }
