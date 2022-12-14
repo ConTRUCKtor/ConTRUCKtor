@@ -29,6 +29,7 @@ pub struct Contract {
     cargo_information: String,
     from_user: i32,
     for_user: i32,
+    done: bool,
 }
 
 impl Contract {
@@ -46,6 +47,7 @@ impl Contract {
             cargo_information,
             from_user,
             for_user: -1,
+            done: false,
         }
     }
     pub fn add_for_user(mut self, for_user: i32) {
