@@ -1,0 +1,161 @@
+{
+  "main": {
+    "id": "6a1e287cbff96f53",
+    "type": "split",
+    "children": [
+      {
+        "id": "5066c812709cce79",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "396af73e18ff381e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "API DOCS.md",
+                "mode": "source",
+                "source": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "ffaeee6d4a497113",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9996e3dcb3108f78",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "API DOCS.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6648475ad0db353d",
+    "type": "split",
+    "children": [
+      {
+        "id": "81feb9fb6c486eb4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "36d9061f35df5848",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "bdbcb82e9f323755",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "984f41d3fe05303d",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "36bae2a3548d9a71",
+    "type": "split",
+    "children": [
+      {
+        "id": "23004cbda904cd86",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "159c33a775b5b2aa",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "API DOCS.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "baae46c4ec1e8f0b",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "API DOCS.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "592cd7f7450fac97",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "a869ff67bc674bf7",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "API DOCS.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "36d9061f35df5848",
+  "lastOpenFiles": [
+    "API DOCS.md"
+  ]
+}
