@@ -1,8 +1,11 @@
 export default function LogoutButton() {
+    function go_to(){
+        location.replace("/api/auth/logout");
+    }
 
     return (
-        <a href="/api/auth/logout">
-            Log Out
-        </a>
+        <button type="button" className="btn btn-primary" onClick={go_to}>
+            Log out
+        </button>
     )
 }

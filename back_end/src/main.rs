@@ -5,11 +5,46 @@ mod database;
 use crate::database::models::*;
 use crate::database::*;
 
+use rocket::http::ContentType;
+use rocket::http::Method;
 use rocket_db_pools::Connection;
 use rocket_db_pools::Database;
 
 use rocket::http::Status;
 use rocket::serde::json::Json;
+
+use rocket::fairing::{Fairing, Info, Kind};
+use rocket::http::Header;
+use rocket::{Request, Response};
+
+pub struct CORS;
+
+#[rocket::async_trait]
+impl Fairing for CORS {
+    fn info(&self) -> Info {
+        Info {
+            name: "Add CORS headers to reponses",
+            kind: Kind::Response,
+        }
+    }
+
+    async fn on_response<'r>(&self, request: &'r Request<'_>, response: &mut Response<'r>) {
+        response.set_header(Header::new("Access-Control-Allow-Origin", "*"));
+        response.set_header(Header::new(
+            "Access-Control-Allow-Methods",
+            "POST, GET, PATCH, OPTIONS",
+        ));
+        response.set_header(Header::new("Access-Control-Allow-Headers", "*"));
+        response.set_header(Header::new("Access-Control-Allow-Credentials", "true"));
+
+        if request.method() == Method::Options {
+            let body = "";
+            response.set_header(ContentType::Plain);
+            response.set_sized_body(body.len(), std::io::Cursor::new(body));
+            response.set_status(Status::Ok);
+        }
+    }
+}
 
 #[post("/create_contract", data = "<create_contract>")]
 async fn create_contract(
@@ -86,20 +121,23 @@ async fn delete_contract(db: Connection<UserDatabase>, id: i32) -> Status {
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().attach(UserDatabase::init()).mount(
-        "/",
-        routes![
-            create_contract,
-            get_contracts,
-            get_contract,
-            update_from_location,
-            update_to_location,
-            update_cargo_information,
-            update_from_user,
-            assign_trucker,
-            mark_contract_done,
-            unmark_contract_done,
-            delete_contract
-        ],
-    )
+    rocket::build()
+        .attach(CORS)
+        .attach(UserDatabase::init())
+        .mount(
+            "/",
+            routes![
+                create_contract,
+                get_contracts,
+                get_contract,
+                update_from_location,
+                update_to_location,
+                update_cargo_information,
+                update_from_user,
+                assign_trucker,
+                mark_contract_done,
+                unmark_contract_done,
+                delete_contract
+            ],
+        )
 }
