@@ -2,33 +2,13 @@ use rocket::serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-pub struct User {
-    id: i32,
-    first_name: String,
-    last_name: String,
-    auth0_id: String,
-}
-
-impl User {
-    pub fn new(id: i32, first_name: String, last_name: String, auth0_id: String) -> Self {
-        User {
-            id,
-            first_name,
-            last_name,
-            auth0_id,
-        }
-    }
-}
-
-#[derive(Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
 pub struct Contract {
     id: i32,
     from_location: String,
     to_location: String,
     cargo_information: String,
-    from_user: i32,
-    for_user: i32,
+    from_user: String,
+    for_user: String,
     done: bool,
 }
 
@@ -38,19 +18,27 @@ impl Contract {
         from_location: String,
         to_location: String,
         cargo_information: String,
-        from_user: i32,
+        from_user: String,
+        for_user: String,
+        done: bool,
     ) -> Self {
-        Contract {
+        Self {
             id,
             from_location,
             to_location,
             cargo_information,
             from_user,
-            for_user: -1,
-            done: false,
+            for_user,
+            done,
         }
     }
-    pub fn add_for_user(mut self, for_user: i32) {
-        self.for_user = for_user;
-    }
+}
+
+#[derive(Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct CreateContract {
+    pub from_location: String,
+    pub to_location: String,
+    pub cargo_information: String,
+    pub from_user: String,
 }

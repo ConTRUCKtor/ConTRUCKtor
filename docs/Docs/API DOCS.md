@@ -2,7 +2,7 @@
 	- `/create_contract`
 	- `/get_contracts`
 	- `/get_contract/<id>`
-	- `/update_contract/<id>`
+	- `/update_<item>>/<id>`
 	- `/assign_trucker/<id_contract>/<id_user>`
 	- `/mark_contract_done/<id>`
 	- `/unmark_contract_done/<id>`
@@ -48,12 +48,12 @@
 <font style="color:green">200 OK</font> => `Array of Contracts will be returned as defined above`
 <font style="color:red">404 Not Found</font> => `No Contracts could be found`
 
-## `/update_contract/<id>`
-#### `USAGE /update_contract/1`
+## `/update_<item>/<id>`
+#### `USAGE /update_from_location/1`
 #### `WITH BODY CONTAINING NEW USER`
 ### `PUT`
 `Send id as paramater to API and get a Contract with the given id`
-<font style="color:green">200 OK</font> => `Contract will be returned as defined above`
+<font style="color:green">204 OK</font> => `Contract has been updated`
 <font style="color:red">404 Not Found</font> => `The Contract could not be found in the database`
 
 ## `/assign_trucker/<id_contract>/<id_user>`
