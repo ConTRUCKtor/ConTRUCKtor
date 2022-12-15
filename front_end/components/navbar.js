@@ -26,6 +26,7 @@ export default function Navbar(){
                     {profile}
                     <li><Link className="dropdown-item" href="/create_contract">Create Contract</Link></li>
                     <li><Link className="dropdown-item" href="/search_contract">Search for Contract</Link></li>
+                    <li><Link className="dropdown-item" href="/list_contracts">See all contracts</Link></li>
                 </ul>
             </>
         )
