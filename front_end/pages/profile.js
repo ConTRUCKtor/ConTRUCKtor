@@ -15,10 +15,13 @@ export default function Profile(){
         let res = await fetch(`/api/user/${user.sub}`);
         console.log(await res.json());
     }
-    do_it();
+
     return(
         <>
-        {toShow}
+            <h1 className="text-center">Hello {user.name}</h1>
+            <div className="d-flex justify-content-center">
+            {toShow}
+            </div>
         </>
     )
 }
