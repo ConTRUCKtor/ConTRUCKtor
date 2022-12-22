@@ -2,6 +2,7 @@
 extern crate rocket;
 
 mod database;
+
 use crate::database::models::*;
 use crate::database::*;
 
