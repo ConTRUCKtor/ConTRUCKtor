@@ -12,7 +12,7 @@ export default function Profile(){
         toShow = <img src={user.picture} className="img-thumbnail" alt="THIS IS A PICTURE OF YOUR STUPID FACE"/>;
     }
     async function do_it(){
-        let res = await fetch(`/api/user/${user.sub}`, {method: 'POST'});
+        let res = await fetch(`/api/user/${user.sub}`);
         console.log(await res.json());
     }
     do_it();
