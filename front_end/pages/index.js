@@ -6,12 +6,13 @@ export default function Home() {
     if (isLoading)
         return <p>Loading...</p>
 
-    let username = user ? user.name : "Guest";
+    let username = user ? user.nickname : "Guest";
+
 
 
     return (
         <>
-            <h3 className="text-center"> Welcome {user.nickname}! </h3>
+            <h3 className="text-center"> Welcome {username}! </h3>
 
             <div className="alert alert-primary d-flex" role="alert">
                 <svg xmlns="http://www.w3.org/2000/svg" height={10} fill="currentColor"
@@ -35,6 +36,42 @@ export default function Home() {
                     <a href="#" className="btn btn-outline-success">Go to contruckts</a>
                 </div>
             </div>
+
+            <br/> <br/>
+
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-4 col-md-4 col-sm-8">
+                        <div className="card text-white bg-primary">
+                                <div className="card-body">
+                                    <h5 className="card-title">Card Title</h5>
+                                    <p className="card-text">Some quick example text to build on the card title and make up the
+                                        bulk of the card's content.</p>
+                                </div>
+                        </div>
+                    </div>
+                    <div className="col-lg-4 col-md-4 col-sm-8">
+                        <div className="card text-white bg-secondary">
+                                <div className="card-body">
+                                    <h5 className="card-title">Card Title</h5>
+                                    <p className="card-text">Some quick example text to build on the card title and make up the
+                                        bulk of the card's content.</p>
+                                </div>
+                        </div>
+                    </div>
+                <div className="col-lg-4 col-md-4 col-sm-8">
+                    <div className="card text-white bg-secondary">
+                        <div className="card-body">
+                            <h5 className="card-title">Card Title</h5>
+                            <p className="card-text">Some quick example text to build on the card title and make up the
+                                bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                
+            </div>
         </>
-    )
+)
 }
